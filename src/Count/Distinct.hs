@@ -24,7 +24,6 @@ module Count.Distinct
 
 import Data.Bits
 import Data.Word
-import Debug.Trace
 
 import qualified Data.List as List
 
@@ -64,7 +63,7 @@ count :: State -> Int
 count (State w)
   | w == 0 = 0
   | numberOfZeroes == 0 =
-      floor ((fromIntegral (buckets * buckets) * alpha) * traceShowId (expHarmonicMean ys))
+      floor ((fromIntegral (buckets * buckets) * alpha) * expHarmonicMean ys)
   | otherwise = floor
       ( fromIntegral @Int @Double buckets
         *
