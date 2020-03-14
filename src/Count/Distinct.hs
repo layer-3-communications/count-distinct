@@ -24,6 +24,7 @@ module Count.Distinct
   ) where
 
 import Data.Bits
+import Data.Foldable (foldl')
 import Data.Word
 import Debug.Trace
 
@@ -97,5 +98,5 @@ buckets = 12
 
 -- | Fold some hashable elements into a 'State'.
 fold :: Foldable t => (a -> Word32) -> t a -> State
-fold f = foldr (insert . f) empty
+fold f = foldl' (flip (insert . f)) empty
 {-# inlineable fold #-}
