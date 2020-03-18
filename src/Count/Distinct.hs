@@ -20,9 +20,11 @@ module Count.Distinct
   , insert
   , empty
   , count
+  , fold
   ) where
 
 import Data.Bits
+import Data.Foldable (foldl')
 import Data.Word
 
 import qualified Data.List as List
@@ -93,5 +95,7 @@ alpha = 0.67
 buckets :: Int
 buckets = 12
 
--- mostBuckets :: Int
--- mostBuckets = div (buckets * 3) 4
+-- | Fold some hashable elements into a 'State'.
+fold :: Foldable t => (a -> Word32) -> t a -> State
+fold f = foldl' (flip (insert . f)) empty
+{-# inlineable fold #-}
